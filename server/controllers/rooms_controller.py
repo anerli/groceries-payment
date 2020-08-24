@@ -17,6 +17,11 @@ def create_room():
 def get_rooms():
     return {'rooms': rooms_engine.get_all()}
 
+@rooms_bp.route('/<room>', methods=['GET'])
+def get_room(room):
+    return rooms_engine.load(room)
+    #return 'bruh'
+
 @rooms_bp.route('/members', methods=['POST'])
 def add_member():
     req = request.get_json()
