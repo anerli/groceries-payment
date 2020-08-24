@@ -2,7 +2,7 @@ from lib.database import db
 
 def get_next_available_id(collection):
     try:
-        return db[collection].find().sort('_id', -1).limit(1).next()
+        return db[collection].find().sort('_id', -1).limit(1).next()['_id'] + 1
     except StopIteration:
         # No documents yet
         return 0

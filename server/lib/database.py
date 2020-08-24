@@ -6,4 +6,4 @@ with open(os.path.dirname(os.path.realpath(__file__)) + "\\" + 'mongodb.key') as
     MONGODB_KEY = f.read()
 
 client = MongoClient("mongodb+srv://flarphengarg:{}@freebie-kgbod.gcp.mongodb.net/test?retryWrites=true&w=majority".format(MONGODB_KEY))
-db = client.test
+db = client.groceries

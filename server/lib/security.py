@@ -1,4 +1,5 @@
 import bcrypt
+import os
 
 def hash_password(password: str) -> str:
     """Hash a password for storing."""
