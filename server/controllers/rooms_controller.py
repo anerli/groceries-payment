@@ -13,12 +13,17 @@ def create_room():
     created_user_data = rooms_engine.create(req['name'], req['password'])
     return created_user_data
 
-@rooms_bp.route('', methods=['GET'])
-def get_rooms():
-    return {'rooms': rooms_engine.get_all()}
+# @rooms_bp.route('', methods=['GET'])
+# def get_rooms():
+#     return {'rooms': rooms_engine.get_all()}
 
 @rooms_bp.route('/<room>', methods=['GET'])
 def get_room(room):
+    password = request.args.get('password')
+    room_data = rooms_engine.load(room)
+    if not security.verify_password(password, room_data['password']):
+        return "Incorrect room password.", 400
+
     return rooms_engine.load(room)
     #return 'bruh'
 

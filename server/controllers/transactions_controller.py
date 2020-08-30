@@ -19,10 +19,11 @@ def add_transaction():
         return "Incorrect room password.", 400
 
     payer = req['payer']
-    payee = req['payee']
+    receiver = req['receiver']
     amount = req['amount']
+    method = req['method']
 
-    transaction = transactions_engine.create(room, payer, payee, amount)
+    transaction = transactions_engine.create(room, payer, receiver, amount, method)
 
     # Update debt with new transaction in the db
     room_data['members'] = calculate_debt(room_data['members'].keys(), trips_engine.get_all(room), transactions_engine.get_all(room))
@@ -30,3 +31,16 @@ def add_transaction():
     rooms_engine.save(room_data)
     
     return transaction
+
+@transactions_bp.route('', methods=['GET'])
+def get_transactions():
+    req = request.get_json()
+
+    room = req['room']
+    password = req['password']
+
+    room_data = rooms_engine.load(room)
+    if not security.verify_password(password, room_data['password']):
+        return "Incorrect room password.", 400
+
+    return {'transactions': transactions_engine.get_all(room)}

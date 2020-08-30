@@ -23,7 +23,7 @@ def calculate_debt(members, trips, transactions):
     print('Transactions:')
     print(transactions)
     for transaction in transactions:
-        member_data = add_debt(member_data, transaction['payee'], transaction['payer'], transaction['amount'])
+        member_data = add_debt(member_data, transaction['receiver'], transaction['payer'], transaction['amount'])
 
     print(member_data)
     return member_data
