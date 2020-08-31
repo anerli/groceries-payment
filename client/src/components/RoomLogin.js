@@ -13,12 +13,12 @@ export default class RoomLogin extends React.Component{
     }
 
     handleSubmit = () => {
-        console.log(this.state.room);
-        console.log(this.state.password);
+        //console.log(this.state.room);
+        //console.log(this.state.password);
 
         Axios.get('/api/rooms/'+this.state.room, {params: {password: this.state.password}}).then(
             (resp) => {
-                console.log(resp);
+                //console.log(resp);
                 // this.setState(
                 //     {
                 //         roomData: resp.data

@@ -5,49 +5,50 @@ import Axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
 export default class RoomInfo extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            roomData: null
-        }
-    }
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         roomData: null
+    //     }
+    // }
 
     componentDidMount(){
+        //console.log(this.props);
         //headers: {'Content-Type': 'application/json'}, 
         // I guess you have to use query params instead of json data in GETs with Axios
-        Axios.get('/api/rooms/'+localStorage.getItem('room'), {params: {password: localStorage.getItem('password')}}).then(
-            (resp) => {
-                console.log(resp.data);
-                this.setState(
-                    {
-                        roomData: resp.data
-                    }
-                );
-            }
-        )
+        // Axios.get('/api/rooms/'+localStorage.getItem('room'), {params: {password: localStorage.getItem('password')}}).then(
+        //     (resp) => {
+        //         console.log(resp.data);
+        //         this.setState(
+        //             {
+        //                 roomData: resp.data
+        //             }
+        //         );
+        //     }
+        // )
     }
 
     render(){
         return (
-            <Card style={{ width: '24rem' }}>
+            <Card style={{ width: '20rem' }}>
                 <Card.Body>
                     <Card.Title>Room Info</Card.Title>
                     
-                    {this.state.roomData ?
+                    {this.props.roomData ?
                     <div>
-                        <Card.Subtitle>{this.state.roomData.name}</Card.Subtitle>
+                        <Card.Subtitle>{this.props.roomData.name}</Card.Subtitle>
                             <Table style={{marginTop: '1rem'}}>
                                 <tbody>
                                     {
-                                    Object.keys(this.state.roomData.members).map(
+                                    Object.keys(this.props.roomData.members).map(
                                         member => {
-                                            console.log(member);
-                                            console.log(Object.keys(this.state.roomData.members[member]));
-                                            return Object.keys(this.state.roomData.members[member]).map( 
+                                            //console.log(member);
+                                            //console.log(Object.keys(this.props.roomData.members[member]));
+                                            return Object.keys(this.props.roomData.members[member]).map( 
                                                     other=>{
                                                         return (
                                                             <tr>
-                                                                <td>{member} owes {other} ${this.state.roomData.members[member][other].toFixed(2)}</td>
+                                                                <td>{member} owes {other} ${this.props.roomData.members[member][other].toFixed(2)}</td>
                                                             </tr>
                                                         );
                                                     }

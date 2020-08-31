@@ -15,7 +15,7 @@ export default class RoomInfo extends React.Component{
     componentDidMount(){
         Axios.get('/api/trips', {params: {room: localStorage.getItem('room'), password: localStorage.getItem('password')}}).then(
             (resp) => {
-                console.log(resp.data);
+                //console.log(resp.data);
                 this.setState(
                     {
                         trips: resp.data.trips
@@ -26,8 +26,32 @@ export default class RoomInfo extends React.Component{
     }
 
     render(){
+        // Derive list of members for columns
+        let members = [];
+        Object.keys(this.props.roomData.members).forEach(
+            member => {
+                if (!members.includes(member)){
+                    members.push(member);
+                }
+            }
+        );
+        // if(this.state.trips){
+        //     this.state.trips.forEach(
+        //         trip => {
+        //             Object.keys(trip.personals).forEach(
+        //                 member => {
+        //                     if (!members.includes(member)){
+        //                         members.push(member);
+        //                     }
+        //                 }
+        //             )
+        //         }
+        //     )
+            
+        // }
+            // TODO: Card size is a hack, is hard coded right now but should ideally be dynamically sized based on # members (or by size of inner chart)
         return (
-            <Card style={{ width: '30rem' }}>
+            <Card style={{}}>
                 <Card.Body>
                     <Card.Title>Trips</Card.Title>
                     
@@ -38,9 +62,12 @@ export default class RoomInfo extends React.Component{
                                 <tr>
                                     <th>Date</th>
                                     <th>Buyer</th>
-                                    <th>Communal Total</th>
+                                    <th>Communal</th>
                                     {/* Add personal column for each thing? */}
                                     {/* <th>Username</th> */}
+                                    {members.map(
+                                        member => <th>{member}</th>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +77,7 @@ export default class RoomInfo extends React.Component{
                                         return (
                                             <tr>
                                                 <td>
-                                                    {moment(trip.timestamp).format('ll')}
+                                                    {moment(trip.timestamp).format('l')}
                                                 </td>
                                                 <td>
                                                     {trip.buyer}
@@ -58,6 +85,18 @@ export default class RoomInfo extends React.Component{
                                                 <td>
                                                     ${trip.communal.total.toFixed(2)}
                                                 </td>
+                                                {members.map(
+                                                    member => {
+                                                        if(Object.keys(trip.personals).includes(member)){
+                                                            return <td>${trip.personals[member].total.toFixed(2)}</td>
+                                                            //console.log(trip.personals[member])
+                                                            //return <td>1.0</td>
+                                                        }
+                                                        else{
+                                                            return <td>$0.00</td>
+                                                        }
+                                                    }
+                                                )}
                                             </tr>
                                         );
                                     }

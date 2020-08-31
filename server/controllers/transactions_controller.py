@@ -34,10 +34,10 @@ def add_transaction():
 
 @transactions_bp.route('', methods=['GET'])
 def get_transactions():
-    req = request.get_json()
+    #req = request.get_json()
 
-    room = req['room']
-    password = req['password']
+    room = request.args.get('room')
+    password = request.args.get('password')
 
     room_data = rooms_engine.load(room)
     if not security.verify_password(password, room_data['password']):
