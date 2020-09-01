@@ -38,12 +38,18 @@ export default class RoomLogin extends React.Component{
     }
 
     handleChange = (event) => {
-        //console.log(event);
+        console.log(event);
         //console.log(event.target);
         let nam = event.target.id;
         //console.log(nam);
         let val = event.target.value;
         this.setState({[nam]: val});
+    }
+
+    handleKeyPress = (target) => {
+        if (target.charCode === 13){
+            this.handleSubmit();
+        }
     }
 
     render(){
@@ -57,7 +63,7 @@ export default class RoomLogin extends React.Component{
                     </Form.Group>
                     <Form.Group controlId="password">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={this.handleChange}/>
+                        <Form.Control type="password" placeholder="Password" onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
                     </Form.Group>
                     {/* type="submit" */}
                     <Button variant="primary" onClick={this.handleSubmit}>
