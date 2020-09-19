@@ -122,7 +122,7 @@ export default class Payments extends React.Component{
                         </Button>
                     </Modal.Footer>
                 </Modal> */}
-                <Card style={{width: '30rem'}}>
+                <Card style={{width: '32rem'}}>
                     <Card.Body>
                         <Card.Title>Payments</Card.Title>
                         
@@ -134,63 +134,65 @@ export default class Payments extends React.Component{
                             >
                             Add New
                             </Button>
-                            <Table bordered hover style={{marginTop: '1rem'}}>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Payer</th>
-                                        <th>Receiver</th>
-                                        <th>Amount</th>
-                                        <th>Method</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                    this.state.payments.map(
-                                        transaction => {
-                                            return (
-                                                <tr>
-                                                    <td>
-                                                        {moment(transaction.timestamp).format('l')}
-                                                    </td>
-                                                    <td>
-                                                        {transaction.payer}
-                                                    </td>
-                                                    <td>
-                                                        {transaction.receiver}
-                                                    </td>
-                                                    <td>
-                                                        ${transaction.amount.toFixed(2)}
-                                                    </td>
-                                                    <td>
-                                                        {transaction.method}
-                                                    </td>
-                                                </tr>
-                                            );
+                            <div style={{overflow: "scroll"}}>
+                                <Table bordered hover style={{marginTop: '1rem'}}>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Payer</th>
+                                            <th>Receiver</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                        this.state.payments.map(
+                                            transaction => {
+                                                return (
+                                                    <tr>
+                                                        <td>
+                                                            {moment(transaction.timestamp).format('l')}
+                                                        </td>
+                                                        <td>
+                                                            {transaction.payer}
+                                                        </td>
+                                                        <td>
+                                                            {transaction.receiver}
+                                                        </td>
+                                                        <td>
+                                                            ${transaction.amount.toFixed(2)}
+                                                        </td>
+                                                        <td>
+                                                            {transaction.method}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            }
+                                        )
                                         }
-                                    )
-                                    }
-                                    {/* <tr>
-                                        <td>
-                                            
-                                        </td>
-                                        <td>
-                                            <DropdownButton id="payer" title="Payer">
-                                                <Dropdown.Item>Anders</Dropdown.Item>
-                                            </DropdownButton>
-                                        </td>
-                                        <td>
-                                            dropdown
-                                        </td>
-                                        <td>
-                                            $input
-                                        </td>
-                                        <td>
-                                            dropdown
-                                        </td>
-                                    </tr> */}
-                                </tbody>
-                            </Table>
+                                        {/* <tr>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                <DropdownButton id="payer" title="Payer">
+                                                    <Dropdown.Item>Anders</Dropdown.Item>
+                                                </DropdownButton>
+                                            </td>
+                                            <td>
+                                                dropdown
+                                            </td>
+                                            <td>
+                                                $input
+                                            </td>
+                                            <td>
+                                                dropdown
+                                            </td>
+                                        </tr> */}
+                                    </tbody>
+                                </Table>
+                            </div>
                             {/* <Card.Text>{JSON.stringify(this.state.payments)}</Card.Text> */}
                             
                         </div>

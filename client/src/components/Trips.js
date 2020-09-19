@@ -105,7 +105,17 @@ export default class RoomInfo extends React.Component{
                         )}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={() => {}}>
+                        <Button variant="danger" onClick={() => {
+                            console.log("DELETING TRIP: ", selectedTrip._id);
+                            Axios.delete('/api/trips', {params:{
+                                room: localStorage.getItem('room'),
+                                password: localStorage.getItem('password'),
+                                trip_id: selectedTrip._id
+                            }}).then((resp) => {
+                                window.location.reload();
+                                //console.log(resp);
+                            });
+                        }}>
                             Delete Trip
                         </Button>
                     </Modal.Footer>

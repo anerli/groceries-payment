@@ -20,7 +20,14 @@ def get_all(room):
     return [trip for trip in db['trips'].find({'room':room})]
 
 def remove(room, trip_id):
+    trip_id = int(trip_id)
+    #print("REMOVING TRIP IN {} WITH ID {}".format(room, trip_id))
     trip = db['trips'].find_one({'room': room, '_id': trip_id})
+    #print(trip)
+    #print(db['trips'].find_one({'room': room}))
+    #print(db['trips'].find_one({'_id': trip_id}))
+    #print(db['trips'].find_one({'_id': int(trip_id)})) # NEED INT CAST ON ID
+    #print(db['trips'].find_one({'_id': str(trip_id)}))
     db['trips'].delete_one({'room': room, '_id': trip_id})
     return trip
 

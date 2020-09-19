@@ -20,3 +20,7 @@ def create(room, payer, receiver, amount, method):
 
 def get_all(room):
     return [transaction for transaction in db['transactions'].find({'room':room})]
+
+# Need function to accumulate old payments into summarized entries
+def combine_old(room):
+    pass

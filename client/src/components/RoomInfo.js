@@ -36,7 +36,22 @@ export default class RoomInfo extends React.Component{
                     
                     {this.props.roomData ?
                     <div>
-                        <Card.Subtitle>{this.props.roomData.name}</Card.Subtitle>
+                        <Card.Subtitle style={{marginBottom: "1rem"}}>{this.props.roomData.name}</Card.Subtitle>
+                            <Button 
+                            onClick={
+                            () => {
+                                localStorage.removeItem('room');
+                                localStorage.removeItem('password');
+                                //this.setState({});
+                                window.location.reload();
+                            }
+                            }
+                            style={{
+                                marginTop: '0rem'
+                            }}
+                            >
+                            Logout
+                            </Button>
                             <Table style={{marginTop: '1rem'}}>
                                 <tbody>
                                     {
@@ -66,21 +81,7 @@ export default class RoomInfo extends React.Component{
                     <Spinner animation="border"/>
                     }
                     {/* <Button>Asd</Button> */}
-                    <Button 
-                        onClick={
-                        () => {
-                            localStorage.removeItem('room');
-                            localStorage.removeItem('password');
-                            //this.setState({});
-                            window.location.reload();
-                        }
-                        }
-                        style={{
-                            marginTop: '0rem'
-                        }}
-                    >
-                    Logout
-                    </Button>
+                    
                 </Card.Body>
                 
                 

@@ -53,7 +53,7 @@ class App extends React.Component{
 
     return (
     <div style={{padding: '2rem'}}>
-      <p>{JSON.stringify(this.state.roomData)}</p>
+      {/* <p>{JSON.stringify(this.state.roomData)}</p> */}
       <Container style={{maxWidth: '100%'}}>
         <Row>
           <Col>

@@ -88,14 +88,17 @@ Remove a trip and revert the associated debt.
 '''
 @trips_bp.route('', methods=['DELETE'])
 def remove_trip():
-    req = request.get_json()
-    room = req['room']
-    password = req['password']
+    #req = request.get_json()
+    #room = req['room']
+    #password = req['password']
+    room = request.args.get('room')
+    password = request.args.get('password')
 
     room_data = rooms_engine.load(room)
     if not security.verify_password(password, room_data['password']):
         return "Incorrect room password.", 400
 
-    trip_id = req['trip_id']
+    #trip_id = req['trip_id']
+    trip_id = request.args.get('trip_id')
     
     return {"trips": trips_engine.remove(room, trip_id)}

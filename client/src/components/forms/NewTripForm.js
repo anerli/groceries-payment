@@ -38,7 +38,7 @@ export default function NewTransactionForm(props){
                         description: values.communal_description
                     },
                     personals: {
-
+                        // How do I implement this?
                     }
                 }
             ).then(
