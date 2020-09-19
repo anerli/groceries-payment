@@ -30,9 +30,13 @@ class App extends React.Component{
             );
         }
       );
-    }
-    
+    } 
   }
+
+  onUpdateTransaction = () => {
+    console.log("Transaction updated!");
+  }
+
   render(){
     let room = localStorage.getItem('room');
     let password = localStorage.getItem('password');
@@ -59,7 +63,7 @@ class App extends React.Component{
             <Trips roomData={this.state.roomData}/>
           </Col>
           <Col>
-            <Payments roomData={this.state.roomData}/>
+            <Payments roomData={this.state.roomData} onUpdateTransaction={this.onUpdateTransaction}/>
           </Col>
         </Row>
       </Container>

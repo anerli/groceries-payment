@@ -4,9 +4,15 @@ import Spinner from 'react-bootstrap/Spinner';
 import Axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import moment from 'moment';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+//import Dropdown from 'react-bootstrap/Dropdown';
+//import DropdownButton from 'react-bootstrap/DropdownButton';
 import Modal from 'react-bootstrap/Modal';
+//import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import FormGroup from 'react-bootstrap/FormGroup';
+import FormLabel from 'react-bootstrap/FormLabel'; 
+import {Formik, Field, Form, ErrorMessage} from 'formik';
+import NewTransactionForm from './forms/NewTransactionForm';
 
 export default class Payments extends React.Component{
     constructor(props){
@@ -17,21 +23,7 @@ export default class Payments extends React.Component{
         }
     }
 
-    handleCloseAddPaymentModal = () => {
-        this.setState({showAddPaymentModal: false});
-    }
-
-    handleShowAddPaymentModal = () => {
-        this.setState({showAddPaymentModal: true});
-    }
-
-    handleAddPayment = () => {
-        // TEMP
-        this.setState({showAddPaymentModal: false});
-    }
-
-    componentDidMount(){
-        //console.log(this.props);
+    pullData = () => {
         Axios.get('/api/transactions', {params: {room: localStorage.getItem('room'), password: localStorage.getItem('password')}}).then(
             (resp) => {
                 console.log('Transactions:');
@@ -46,22 +38,89 @@ export default class Payments extends React.Component{
         )
     }
 
+    handleCloseAddPaymentModal = () => {
+        this.setState({showAddPaymentModal: false});
+        this.pullData();
+        this.props.onUpdateTransaction();
+    }
+
+    handleShowAddPaymentModal = () => {
+        this.setState({showAddPaymentModal: true});
+    }
+
+    handleAddPayment = () => {
+        // TEMP
+        this.setState({showAddPaymentModal: false});
+    }
+
+    componentDidMount(){
+        //console.log(this.props);
+        this.pullData();
+    }
+
     render(){
+        let members = [];
+        Object.keys(this.props.roomData.members).forEach(
+            member => {
+                if (!members.includes(member)){
+                    members.push(member);
+                }
+            }
+        );
+        console.log("MEMBERS");
+        console.log(members);
         return (
             <div>
-                <Modal show={this.state.showAddPaymentModal} onHide={this.handleCloseAddPaymentModal}>
+                <NewTransactionForm
+                show={this.state.showAddPaymentModal}
+                onHide={this.handleCloseAddPaymentModal}
+                members={members}
+                />
+
+                {/* <Modal show={this.state.showAddPaymentModal} onHide={this.handleCloseAddPaymentModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add New Transaction</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        Put a form here
+                        <Formik
+                            render={({handleChange, handleSubmit, handleBlur, values, errors, validateForm}) => (
+                                <Form>
+                                    <p>{errors.payer}</p>
+                                    <ErrorMessage name="payer"/>
+                                    <Field
+                                        name="payer"
+                                        render={({field, formProps}) => (
+                                            <FormGroup controlId="payer">
+                                                <FormLabel>Payer</FormLabel>
+                                                <FormControl as="select" value={field.value}>
+                                                    {members.map((member) => {
+                                                        return (<option>{member}</option>);
+                                                    })}
+                                                </FormControl>
+                                            </FormGroup>
+                                        )}
+                                    />
+                                    <Button onClick={validateForm}>Validate Form</Button>
+                                </Form>
+                            )}
+                            validate={(values) => {
+                                let errors = {};
+                                console.log(values);
+                                console.log(values.payer);
+                                if(values.payer == 'Anders'){
+                                    errors.payer = 'Anders is a dumb-dumb.';
+                                }
+                                return errors;
+                            }}
+                        />
+                        
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.handleAddPayment}>
                             Add Transaction
                         </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
                 <Card style={{width: '30rem'}}>
                     <Card.Body>
                         <Card.Title>Payments</Card.Title>
