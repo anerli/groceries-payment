@@ -33,9 +33,9 @@ class App extends React.Component{
     } 
   }
 
-  onUpdateTransaction = () => {
-    console.log("Transaction updated!");
-  }
+  // onUpdateTransaction = () => {
+  //   console.log("Transaction updated!");
+  // }
 
   render(){
     let room = localStorage.getItem('room');
@@ -63,7 +63,7 @@ class App extends React.Component{
             <Trips roomData={this.state.roomData}/>
           </Col>
           <Col>
-            <Payments roomData={this.state.roomData} onUpdateTransaction={this.onUpdateTransaction}/>
+            <Payments roomData={this.state.roomData}/>
           </Col>
         </Row>
       </Container>

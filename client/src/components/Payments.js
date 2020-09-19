@@ -41,7 +41,8 @@ export default class Payments extends React.Component{
     handleCloseAddPaymentModal = () => {
         this.setState({showAddPaymentModal: false});
         this.pullData();
-        this.props.onUpdateTransaction();
+        window.location.reload();
+        //this.props.onUpdateTransaction();
     }
 
     handleShowAddPaymentModal = () => {
