@@ -4,6 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Axios from 'axios';
 import moment from 'moment';
 import Modal from 'react-bootstrap/Modal';
+import NewTripForm from './forms/NewTripForm';
 
 export default class RoomInfo extends React.Component{
     constructor(props){
@@ -11,7 +12,8 @@ export default class RoomInfo extends React.Component{
         this.state = {
             trips: null,
             showInfoModal: false,
-            selectedTripId: null // only used in conjunction with modal
+            selectedTripId: null, // only used in conjunction with modal
+            showAddTripModal: false
         }
     }
 
@@ -26,6 +28,15 @@ export default class RoomInfo extends React.Component{
         this.setState({
             showInfoModal: false
         });
+    }
+
+    handleShowAddTripModal = () => {
+        this.setState({showAddTripModal: true});
+    }
+
+    handleCloseAddTripModal = () => {
+        this.setState({showAddTripModal: false});
+        window.location.reload();
     }
 
     componentDidMount(){
@@ -100,13 +111,23 @@ export default class RoomInfo extends React.Component{
                     </Modal.Footer>
                 </Modal>
                 }
+                <NewTripForm
+                show={this.state.showAddTripModal}
+                onHide={this.handleCloseAddTripModal}
+                members={members}
+                />
                 <Card style={{}}>
                     <Card.Body>
                         <Card.Title>Trips</Card.Title>
                         
                         {this.state.trips ?
                         <div>
-                            <Table bordered hover>
+                            <Button 
+                                onClick={this.handleShowAddTripModal}
+                            >
+                            Add New
+                            </Button>
+                            <Table bordered hover style={{marginTop: '1em'}}>
                                 <thead>
                                     <tr>
                                         <th>Date</th>
@@ -183,7 +204,7 @@ export default class RoomInfo extends React.Component{
                                     }
                                 </tbody>
                             </Table> */}
-                            <Card.Text>{JSON.stringify(this.state.trips)}</Card.Text>
+                            {/* <Card.Text>{JSON.stringify(this.state.trips)}</Card.Text> */}
                             
                         </div>
                         :

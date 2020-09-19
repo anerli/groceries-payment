@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
+import Spinner from 'react-bootstrap/Spinner';
 
 //show, onHide, members
 
@@ -104,9 +105,11 @@ export default function NewTransactionForm(props){
 
             </Modal.Body>
             <Modal.Footer>
+                {submitting ? <Spinner animation="border"/> :
                 <Button variant="primary" type="submit" onClick={formik.handleSubmit}>
                     Add Transaction
                 </Button>
+                }
             </Modal.Footer>
         </Modal>
     );

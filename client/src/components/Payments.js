@@ -40,7 +40,7 @@ export default class Payments extends React.Component{
 
     handleCloseAddPaymentModal = () => {
         this.setState({showAddPaymentModal: false});
-        this.pullData();
+        //this.pullData();
         window.location.reload();
         //this.props.onUpdateTransaction();
     }
@@ -126,9 +126,15 @@ export default class Payments extends React.Component{
                     <Card.Body>
                         <Card.Title>Payments</Card.Title>
                         
+                        
                         {this.state.payments ?
                         <div>
-                            <Table bordered hover>
+                            <Button 
+                                onClick={this.handleShowAddPaymentModal}
+                            >
+                            Add New
+                            </Button>
+                            <Table bordered hover style={{marginTop: '1rem'}}>
                                 <thead>
                                     <tr>
                                         <th>Date</th>
@@ -185,18 +191,14 @@ export default class Payments extends React.Component{
                                     </tr> */}
                                 </tbody>
                             </Table>
-                            <Card.Text>{JSON.stringify(this.state.payments)}</Card.Text>
+                            {/* <Card.Text>{JSON.stringify(this.state.payments)}</Card.Text> */}
                             
                         </div>
                         :
                         <Spinner animation="border"/>
                         }
                         {/* <Button>Asd</Button> */}
-                        <Button 
-                            onClick={this.handleShowAddPaymentModal}
-                        >
-                        Add New
-                        </Button>
+                        
                     </Card.Body>
                 </Card>
             </div>
