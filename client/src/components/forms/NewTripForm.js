@@ -28,6 +28,18 @@ export default function NewTransactionForm(props){
 
             setSubmitting(true);
 
+            // let personals = {};
+            // members.forEach(member => {
+            //     personals[member] = {
+            //         total: values[member].total,
+            //         description: values[member].description
+            //     }
+            // });
+
+            let personals = {};
+
+            
+
             Axios.post('/api/trips', 
                 {
                     room: localStorage.getItem('room'),
@@ -37,8 +49,28 @@ export default function NewTransactionForm(props){
                         total: values.communal_total,
                         description: values.communal_description
                     },
+                    // TODO: Dont hardcode
                     personals: {
-                        // How do I implement this?
+                        Anders: {
+                            total: values.anders_total == null ? 0 : values.anders_total,
+                            description: values.anders_description == null ? '' : values.anders_description
+                        },
+                        Andrew: {
+                            total: values.andrew_total == null ? 0 : values.andrew_total,
+                            description: values.andrew_description == null ? '' : values.andrew_description
+                        },
+                        Jason: {
+                            total: values.jason_total == null ? 0 : values.jason_total,
+                            description: values.jason_description == null ? '' : values.jason_description
+                        },
+                        Ryan: {
+                            total: values.ryan_total == null ? 0 : values.ryan_total,
+                            description: values.ryan_description == null ? '' : values.ryan_description
+                        },
+                        Milind: {
+                            total: values.milind_total == null ? 0 : values.milind_total,
+                            description: values.milind_description == null ? '' : values.milind_description
+                        },
                     }
                 }
             ).then(
@@ -83,6 +115,61 @@ export default function NewTransactionForm(props){
                     <br></br>
                     <textarea rows="6" cols="60" id="communal_description" name="communal_description" value={formik.values.communal_description} onChange={formik.handleChange}/>
                     
+                    {/* {members.map(
+                        (member) => {
+                            return (
+                                <div>
+                                    <p>{member}'s Total:</p>
+
+                                    <p>Description of {member}'s Items:</p>
+                                </div>
+                            );
+                        }
+                    )} */}
+
+                     
+                    <label for="anders_total">Anders's Total:</label>
+                    <br></br>
+                    <input type="number" id="anders_total" name="anders_total" value={formik.values.anders_total} onChange={formik.handleChange}/>
+                    <br></br>
+                    <label for="anders_description">Description of Anders's Items:</label>
+                    <br></br>
+                    <textarea rows="6" cols="60" id="anders_description" name="anders_description" value={formik.values.anders_description} onChange={formik.handleChange}/>
+
+                    <label for="andrew_total">Andrew's Total:</label>
+                    <br></br>
+                    <input type="number" id="andrew_total" name="andrew_total" value={formik.values.andrew_total} onChange={formik.handleChange}/>
+                    <br></br>
+                    <label for="andrew_description">Description of Andrew's Items:</label>
+                    <br></br>
+                    <textarea rows="6" cols="60" id="andrew_description" name="andrew_description" value={formik.values.andrew_description} onChange={formik.handleChange}/>
+
+                    <label for="jason_total">Jason's Total:</label>
+                    <br></br>
+                    <input type="number" id="jason_total" name="jason_total" value={formik.values.jason_total} onChange={formik.handleChange}/>
+                    <br></br>
+                    <label for="jason_description">Description of Jason's Items:</label>
+                    <br></br>
+                    <textarea rows="6" cols="60" id="jason_description" name="jason_description" value={formik.values.jason_description} onChange={formik.handleChange}/>
+
+                    <label for="ryan_total">Ryan's Total:</label>
+                    <br></br>
+                    <input type="number" id="ryan_total" name="ryan_total" value={formik.values.ryan_total} onChange={formik.handleChange}/>
+                    <br></br>
+                    <label for="ryan_description">Description of Ryan's Items:</label>
+                    <br></br>
+                    <textarea rows="6" cols="60" id="ryan_description" name="ryan_description" value={formik.values.ryan_description} onChange={formik.handleChange}/>
+
+                    <label for="milind_total">Milind's Total:</label>
+                    <br></br>
+                    <input type="number" id="milind_total" name="milind_total" value={formik.values.milind_total} onChange={formik.handleChange}/>
+                    <br></br>
+                    <label for="milind_description">Description of Milind's Items:</label>
+                    <br></br>
+                    <textarea rows="6" cols="60" id="milind_description" name="milind_description" value={formik.values.milind_description} onChange={formik.handleChange}/>
+
+                    
+
                 </form>
 
 
